@@ -1,6 +1,6 @@
 import * as types from '../actions/action-types.constants';  
 // Each reducer handles ONLY ONE specific slice/part of state
-export default function devReducers(state = [],action){// Set default state to '[]'
+export default function devReducers(state = {},action){// Set default state to '[]'
 
 // dev Reducers above, can be anonymous function
 
