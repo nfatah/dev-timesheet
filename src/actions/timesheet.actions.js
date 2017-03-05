@@ -1,5 +1,6 @@
 import * as types from './action-types.constants';
 import axios from 'axios';
+import {browserHistory} from 'react-router';
 
 
 // Dev related actions
@@ -19,7 +20,7 @@ export function getDevTimesheet(week_no, month_no, year,user_id){
       let week_timesheet = res.data.data;
       // week_timesheet = week_timesheet.filter(week => week.week_number === week_no)
       dispatch(getTimesheet(week_timesheet));
-        console.log(week_no);
+      browserHistory.push('timesheet')
       })
       .catch(function (error) {
         // console.log(error);
