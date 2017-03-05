@@ -4,7 +4,7 @@ import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import {Link } from 'react-router';
 import $ from 'jquery';
-import currentWeekNumber from 'current-week-number';
+import moment from 'moment';
 import * as timesheetActions from '../../actions/timesheet.actions';
 import * as devActions from '../../actions/dev.actions';
 
@@ -21,15 +21,24 @@ class AllDevs extends React.Component {
   }
   dispatched(d){
     return function devRow(dev, index){
+      let link = 'devs';
+
       function getDate(){
         let val = document.getElementById(`date_pick${index}`).value;
-        let date_picked = new Date(val);
-        let week_no = currentWeekNumber(val).toString();
-        let month_no = date_picked.getMonth()+1;
-        month_no = month_no.toString(); // JS months are zero-indexed
-        let year = date_picked.getFullYear().toString();
-        console.log(week_no);
-        d(timesheetActions.getDevTimesheet(week_no, month_no, year,dev.id));
+        // console.log(val);
+        let year = moment(val).format('YYYY');
+        let day_of_year = moment(val).format('DDD');
+        let week_of_year = moment(val).format('W');
+        let month_of_year = moment(val).format('M');
+        let day_of = moment(val).format('M');
+        if(year !== '2017'){
+          alert("Please choose ONLY 2017 weeks")
+          return;
+        }else if(day_of_year === '1'){
+          alert("January 1st 2017 is week 52 of 2016. Please choose ONLY 2017 weeks")
+        }
+        d(timesheetActions.getDevTimesheet(week_of_year, month_of_year, year,dev.id));
+        
       }
       return(
         <tr key={index}>
@@ -44,7 +53,7 @@ class AllDevs extends React.Component {
                     <input id={`date_pick${index}`}defaultValue="2017-01-01" type="date" className="datepicker picker__input"/>
                   </div>
                   <div className="col s6">
-                    <Link to="/timesheet" onClick={getDate} className="btn">CHECK </Link>
+                    <Link to={`/${link}`} onClick={getDate} className="btn">CHECK </Link>
                   </div>
                 </div>
               </form>
