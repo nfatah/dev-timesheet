@@ -4,12 +4,20 @@ import React, { PropTypes } from 'react';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import * as timesheetActions from '../../actions/timesheet.actions.js';
+import Status from './timesheet-status';
+import ApproveButton from './approve-button';
 
 class DevTimesheet extends React.Component {
   constructor(props, context){
     super(props, context);
   }
-
+  renderStatus(){
+    if(this.props.timesheet.weeks[0].status === "approved"){
+      return "approved";
+    }else if(this.props.timesheet.weeks[0].status === "rejected"){
+      return "rejected";
+    }
+  }
   // componentDidMount(){
   //   $('#add_note').val('New Text');
   //   $('#add_note').trigger('autoresize');
@@ -17,6 +25,7 @@ class DevTimesheet extends React.Component {
   render(){
     //debugger;
     return(
+      
       <div className="row">
         <div>
           <div className="container">
@@ -30,15 +39,23 @@ class DevTimesheet extends React.Component {
               <div className="col s12">
                 <div className="card grey">
                   <div className="card-content white-text">
-                    <div className="col s12">
-                      <div className="col s10">
-                        <span className="new badge green" data-badge-caption="approved">{this.props.timesheet.weeks[0].approvers.length}</span>
-                        <span className="new badge red" data-badge-caption="rejected">4</span>
-                        <span className="new badge orange" data-badge-caption="pending">4</span>
-                      </div>
-                    </div>
                     <div className="row">
-                      <span >Worksheet approved by: {this.props.timesheet.weeks[0].approvers.map(id => ` User_${id} `)}</span>
+                      <table className="bordered">
+                        <thead>
+                            <tr>
+                              <th data-fiel="status">Status</th>
+                              <th data-fiel="approver">Approved by</th>
+                              <th data-fiel="approved_date">Approve Date</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                          <tr>
+                            <td><Status status={this.renderStatus()}/></td>
+                            <td>{this.props.timesheet.weeks[0].approvers.map(id => ` User_${id} |`)}</td>
+                            <td>{this.props.timesheet.weeks[0].approved_by_date}</td>
+                          </tr>
+                        </tbody>
+                      </table>
                     </div>
                     <div className="row">
                       <form className="col s12">
@@ -52,8 +69,14 @@ class DevTimesheet extends React.Component {
                     </div>
                   </div>
                   <div className="card-action">
-                    <buton type="button" className="btn green left">APPROVE</buton>
-                    <buton type="button"className="btn red right">REJECT</buton>
+                    <div className="row">
+                      <div className="col s6">
+                      <ApproveButton/>
+                      </div>
+                      <div className="col s6">
+                        <buton type="button"className="btn red right">REJECT</buton>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -73,15 +96,18 @@ DevTimesheet.propTypes = {
 
 // Connect Component wraps and exposes our components to redux
 // If no 2nd, 'connect' auto injects a dispatch prop into components
-export default connect(mapStateToProps, mapDispatchToProps)(DevTimesheet);
+export default connect(mapStateToProps)(DevTimesheet);
 
-function mapStateToProps(state, ownProps){
+function mapStateToProps(state){
   //debugger;
-  return { timesheet: state.timesheet};
-}
-function mapDispatchToProps(dispatch){
   return {
-    actions: bindActionCreators(timesheetActions,dispatch)
+    timesheet: state.timesheet,
+    devs: state.devs
   };
 }
+// function mapDispatchToProps(dispatch){
+//   return {
+//     actions: bindActionCreators(timesheetActions,dispatch)
+//   };
+// }
 
