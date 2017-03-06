@@ -1,5 +1,4 @@
 import * as types from './action-types.constants';
-import timesheetAPI from '../api/mockAuthorApi';
 import axios from 'axios';
 
 
