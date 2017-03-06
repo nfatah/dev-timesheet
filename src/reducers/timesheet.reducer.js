@@ -10,7 +10,10 @@ export default function devReducers(state = {},action){// Set default state to '
       // /return [...state,  // Return an image/copy of the changed state
       // Object.assign({}, action.dev)
       // ];
-      return action.timesheet; // returned from API
+      return Object.assign({}, state, {
+        dev_timesheet: action.timesheet,
+        selected_week:action.selected_week
+      });
       
     default: // This reducer doesn't handle the action passed
       return state;
