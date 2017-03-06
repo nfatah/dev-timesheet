@@ -10,14 +10,21 @@ import ApproveButton from './approve-button';
 class DevTimesheet extends React.Component {
   constructor(props, context){
     super(props, context);
+    var selected_week = this.props.timesheet.selected_week;    console.log(selected_week);
+
+    var week_timesheet = this.props.timesheet.dev_timesheet.weeks;
+    console.log(week_timesheet);
+    week_timesheet = week_timesheet.filter(week => week.week_number == selected_week)[0];// de-array it
+    console.log(week_timesheet.status);
   }
-  renderStatus(){
-    if(this.props.timesheet.weeks[0].status === "approved"){
-      return "approved";
-    }else if(this.props.timesheet.weeks[0].status === "rejected"){
-      return "rejected";
-    }
-  }
+
+  // renderStatus(){
+  //   if(this.week_timesheet.status === "approved"){
+  //     return "approved";
+  //   }else if(this.week_timesheet.status === "rejected"){
+  //     return "rejected";
+  //   }
+  // }
   // componentDidMount(){
   //   $('#add_note').val('New Text');
   //   $('#add_note').trigger('autoresize');
@@ -29,7 +36,7 @@ class DevTimesheet extends React.Component {
       <div className="row">
         <div>
           <div className="container">
-              <h4 className="center">MONTH {this.props.timesheet.month} - WEEK {this.props.timesheet.weeks[0].week_number} TIMESHEET </h4>
+              <h4 className="center">MONTH {this.props.timesheet.month} - WEEK {this.selected_week} TIMESHEET </h4>
               <h5 className="center blue-text">Developer: User_{this.props.timesheet.owner_id}</h5>
           </div>
 
@@ -50,9 +57,9 @@ class DevTimesheet extends React.Component {
                         </thead>
                         <tbody>
                           <tr>
-                            <td><Status status={this.renderStatus()}/></td>
-                            <td>{this.props.timesheet.weeks[0].approvers.map(id => ` User_${id} |`)}</td>
-                            <td>{this.props.timesheet.weeks[0].approved_by_date}</td>
+                            <td><Status status={this.week_timesheet.status === "approved"?  "approved":"rejected"}/></td>
+                            <td>{this.week_timesheet.approvers.map(id => ` User_${id} |`)}</td>
+                            <td>{this.week_timesheet.approved_by_date}</td>
                           </tr>
                         </tbody>
                       </table>
@@ -90,7 +97,6 @@ class DevTimesheet extends React.Component {
 }
 // Props Validation
 DevTimesheet.propTypes = {
-  actions: PropTypes.object.isRequired,
   timesheet: PropTypes.object.isRequired
 };
 
