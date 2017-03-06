@@ -11,7 +11,9 @@ import {browserHistory} from 'react-router';
 export function getTimesheet(timesheet, selected_week){
   return { type: types.LOAD_USER_TIMESHEET, timesheet, selected_week}; // same as es6 devs:devs
 }
-
+export function approveTimesheet(approveTimesheet){
+  return { type: types.APPROVE_TIMESHEET};
+}
 //Async fetch from aurity API endpoint using axios
 export function getDevTimesheet(week_no, month_no, year,user_id){
   return function(dispatch){
@@ -27,9 +29,16 @@ export function getDevTimesheet(week_no, month_no, year,user_id){
       });
   };
 }
-
-// export function selectUserTimesheet(){
-//   return {
-//     type: types.SELECT_USER_TIMESHEET, 
-//   }
-// }
+export function approveDevTimesheet(week_id, approved_id){
+  return function(dispatch){
+    return axios.put(`https://timesheet-staging-aurity.herokuapp.com/api/training/weeks/${week_id}/users/${approved_id}`,{
+        status: 'approved' 
+      })
+      .then(function (response) {
+        console.log(response);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  };
+}

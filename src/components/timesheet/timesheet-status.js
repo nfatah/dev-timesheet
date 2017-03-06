@@ -12,9 +12,9 @@ class Status extends React.Component {
       return (
       <span className="new badge green left" data-badge-caption="approved"></span>
       );
-    }else if(this.props.status === "rejected"){
+    }else{
       return (
-        <span className="new badge green left" data-badge-caption="approved"></span>
+        <span className="new badge red left" data-badge-caption="pending"></span>
       );
     }
   }
