@@ -29,8 +29,12 @@ class AllDevs extends React.Component {
         let year = moment(val).format('YYYY');
         let day_of_year = moment(val).format('DDD');
         let week_of_year = moment(val).format('W');
-        let month_of_year = moment(val).format('M');
-        let day_of = moment(val).format('M');
+        // let month_of_year = moment(val).format('M');
+        // Get the correct month based on the API because some weeks span 2 Consecutive months
+        let beginningOfWeek = moment().week(week_of_year).startOf('week');
+        //
+        let month_of_year =  beginningOfWeek.format('MM');
+         console.log(month_of_year);
         if(year !== '2017'){
           alert("Please choose ONLY 2017 weeks");
           browserHistory.push('/devs');
