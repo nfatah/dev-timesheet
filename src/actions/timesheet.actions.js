@@ -19,7 +19,7 @@ export function getDevTimesheet(week_no, month_no, year,user_id){
     .then(function (res) {
       let week_timesheet = res.data.data;
       // week_timesheet = week_timesheet.filter(week => week.week_number === week_no)
-      dispatch(getTimesheet(week_timesheet));
+      dispatch(getTimesheet(week_timesheet,week_no));
       browserHistory.push('timesheet');
       })
       .catch(function (error) {
