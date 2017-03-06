@@ -32,12 +32,12 @@ class AllDevs extends React.Component {
         let month_of_year = moment(val).format('M');
         let day_of = moment(val).format('M');
         if(year !== '2017'){
-          alert("Please choose ONLY 2017 weeks")
-          browserHistory.push('/devs')
+          alert("Please choose ONLY 2017 weeks");
+          browserHistory.push('/devs');
           return;
         }else if(day_of_year === '1'){
-          alert("January 1st 2017 is week 52 of 2016. Please choose ONLY 2017 weeks")
-          browserHistory.push('/devs')
+          alert("January 1st 2017 is week 52 of 2016. Please choose ONLY 2017 weeks");
+          browserHistory.push('/devs');
           return;
         }
         d(timesheetActions.getDevTimesheet(week_of_year, month_of_year, year,dev.id));
@@ -96,7 +96,6 @@ class AllDevs extends React.Component {
 }
 // Props Validation
 AllDevs.propTypes = {
-  actions: PropTypes.object.isRequired,
   devs: PropTypes.array.isRequired,
   dispatch: PropTypes.func
 };
@@ -105,7 +104,7 @@ AllDevs.propTypes = {
 // If no 2nd, 'connect' auto injects a dispatch prop into components
 export default connect(mapStateToProps)(AllDevs);
 
-function mapStateToProps(state, ownProps){
+function mapStateToProps(state){
   //debugger;
   return {
     devs: state.devs
