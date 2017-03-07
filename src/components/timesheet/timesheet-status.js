@@ -22,7 +22,7 @@ class Status extends React.Component {
 
 // Props Validation
 Status.propTypes = {
-  status: PropTypes.string.isRequired
+  status: PropTypes.string
 };
 
 export default Status;
