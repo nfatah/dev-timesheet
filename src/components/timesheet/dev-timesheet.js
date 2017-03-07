@@ -69,7 +69,7 @@ class DevTimesheet extends React.Component {
                   <div className="card-action">
                     <div className="row">
                       <div className="col s6">
-                      <ApproveButton week_id={selected_week} approved={week_timesheet.status}/>
+                      <ApproveButton week_id={week_timesheet.week_id} approved={week_timesheet.status}/>
                       </div>
                       <div className="col s6">
                         <buton type="button"className="btn red right">REJECT</buton>

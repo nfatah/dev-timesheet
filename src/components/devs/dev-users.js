@@ -56,7 +56,7 @@ class AllDevs extends React.Component {
               <form>
                 <div className="row">
                   <div className="col s6">
-                    <input id={`date_pick${index}`}defaultValue="2017-01-01" type="date" className="datepicker picker__input"/>
+                    <input id={`date_pick${index}`}defaultValue="2017-01-02" type="date" className="datepicker picker__input"/>
                   </div>
                   <div className="col s6">
                     <Link onClick={getDate} className="btn">CHECK </Link>
