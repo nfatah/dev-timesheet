@@ -35,7 +35,7 @@ export function approveDevTimesheet(week_id, approved_id){
         status: 'approved' 
       })
       .then(function (response) {
-        console.log(response);
+        browserHistory.push('success');
       })
       .catch(function (error) {
         console.log(error);
