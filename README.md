@@ -16,3 +16,7 @@
 - [ ] couple with MongoDB
 - [ ] replace materializecss with Material UI
 - [ ] try MERN stack boilerplate
+
+
+#### Changes
++ commit c7a09623d4597436d51c05667e407ae0004dbeeb bundles the app for production using `npm run build'
