@@ -1,5 +1,6 @@
 // /* eslint-disable no-console */
 // console.log('hi');
+/* eslint-disable import/default */
 
 import 'babel-polyfill'; // For some es6 features not yet supported by babel
 import React from 'react'; // React
