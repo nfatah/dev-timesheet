@@ -32,6 +32,8 @@ class DevTimesheet extends React.Component {
     let selected_week = timesheet.selected_week;
     let month = timesheet.dev_timesheet.month;
     let owner_id = timesheet.dev_timesheet.owner_id;
+    let week_timesheet = timesheet.dev_timesheet.weeks;
+    week_timesheet = week_timesheet.filter(week => week.week_number == selected_week)[0];// de-array it
 
     //debugger;
     return(
@@ -58,11 +60,11 @@ class DevTimesheet extends React.Component {
                             </tr>
                         </thead>
                         <tbody>
-                          {/*<tr>
+                          <tr>
                             <td><Status status={week_timesheet.status}/></td>
                             <td>{week_timesheet.approvers.map(id => `*User_${id}* `)}</td>
                             <td>{week_timesheet.approved_by_date}</td>
-                          </tr>*/}
+                          </tr>
                         </tbody>
                       </table>
                     </div>
