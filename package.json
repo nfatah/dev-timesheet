@@ -2,6 +2,9 @@
   "name": "dev-timesheet-app",
   "version": "1.0.0",
   "description": "Dev Timesheet review app",
+  "engines": {
+    "7.0.0"
+  },
   "scripts": {
     "prestart": "babel-node tools/startMessage.js",
     "start": "npm-run-all --parallel test:watch open:src lint:watch",

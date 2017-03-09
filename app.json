@@ -1,0 +1,6 @@
+{
+  "name": "Dev Timesheet app",
+  "description": "A React-Redux App",
+  "repository": "https://github.com/nfatah/dev-timesheet",
+  "keywords": ["node","express", "react", "materializecss", "redux"]
+}
