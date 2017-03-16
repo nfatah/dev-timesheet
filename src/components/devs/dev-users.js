@@ -16,7 +16,8 @@ class AllDevs extends React.Component {
   componentDidMount() {
     $('.datepicker').pickadate({
       selectMonths: true, // Creates a dropdown to control month
-      selectYears: 1 // Creates a dropdown of 15 years to control year
+      selectYears: 1, // Creates a dropdown of 15 years to control year
+      disable: [1,7] // disable Weekends
     });
   }
   dispatched(d){
