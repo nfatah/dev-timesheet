@@ -7,6 +7,7 @@ import $ from 'jquery';
 import moment from 'moment';
 import * as timesheetActions from '../../actions/timesheet.actions';
 import * as devActions from '../../actions/dev.actions';
+import DateInputRow from './date-input-row.js'
 
 class AllDevs extends React.Component {
   constructor(props, context){
@@ -22,7 +23,6 @@ class AllDevs extends React.Component {
   }
   dispatched(d){
     return function devRow(dev, index){
-      let link = 'timesheet';
 
       function getDate(){
         let val = document.getElementById(`date_pick${index}`).value;
@@ -47,27 +47,7 @@ class AllDevs extends React.Component {
         }
         d(timesheetActions.getDevTimesheet(week_of_year, month_of_year, year,dev.id));
       }
-      return(
-        <tr key={index}>
-          <td> {dev.username}</td>
-          <td> {dev.id}</td>
-          <td> {dev.email}</td>
-          <td>
-            <div>
-              <form>
-                <div className="row">
-                  <div className="col s6">
-                    <input id={`date_pick${index}`}defaultValue="2017-01-02" type="date" className="datepicker picker__input"/>
-                  </div>
-                  <div className="col s6">
-                    <Link onClick={getDate} className="btn">CHECK </Link>
-                  </div>
-                </div>
-              </form>
-            </div>
-          </td>
-        </tr>
-      );
+      return <DateInputRow key={index} username={dev.username} id={dev.id} email={dev.email} getDateFunc={getDate} inputId={`date_pick${index}`}/>
     };
   }
   render(){
