@@ -5,6 +5,7 @@ import {bindActionCreators} from 'redux';
 import {Link, browserHistory} from 'react-router';
 import $ from 'jquery';
 import moment from 'moment';
+import axios from 'axios';
 import * as timesheetActions from '../../actions/timesheet.actions';
 import * as devActions from '../../actions/dev.actions';
 import DateInputRow from './date-input-row.js'
@@ -13,18 +14,43 @@ class AllDevs extends React.Component {
   constructor(props, context){
     super(props, context);
   }
-
   componentDidMount() {
-    $('.datepicker').pickadate({
+    let userId = $('.datepicker#')
+    let $input = $('.datepicker').pickadate({
       selectMonths: true, // Creates a dropdown to control month
       selectYears: 1, // Creates a dropdown of 15 years to control year
-      disable: [1,7] // disable Weekends
+      disable: [1,7], // disable Weekends
+      onSet: (context) => {
+        console.log('Just set stuff:', context);
+        let month = picker.get('view').month;
+        axios.get(`https://timesheet-staging-aurity.herokuapp.com/api/training/weeks/${month}/2017/${1}`)
+        .then(function (res) {
+          console.log(res.data);
+            // console.log(res.data);
+          })
+          .catch(function (error) {
+            // console.log(error);
+          });
+        // $(".picker__day.picker__day--infocus").each(function(){console.log(this)})
+        // let x = $("div.picker__day.picker__day--infocus[data-pick=""]").val(function() {
+        // console.log($(this).attr("data-pick")); })
+        // $(`td div.picker__day.picker__day--infocus.picker__day--highlighted`).val(function(){
+        //   console.log(this);
+        // });
+        // $("div.picker__day.picker__day--infocus[data-pick='1490994000000']").addClass('red');
+        // console.log(picker.get('view'));
+
+      }
     });
-  }
+    let picker = $input.pickadate('picker');
+    // console.log(picker.get('view').month);
+}
+
   dispatched(d){
     return function devRow(dev, index){
 
       function getDate(){
+
         let val = document.getElementById(`date_pick${index}`).value;
         // console.log(val);
         let year = moment(val).format('YYYY');
@@ -47,7 +73,7 @@ class AllDevs extends React.Component {
         }
         d(timesheetActions.getDevTimesheet(week_of_year, month_of_year, year,dev.id));
       }
-      return <DateInputRow key={index} username={dev.username} id={dev.id} email={dev.email} getDateFunc={getDate} inputId={`date_pick${index}`}/>
+      return <DateInputRow key={index} username={dev.username} id={dev.id} email={dev.email} getDateFunc={getDate} inputId={index+1}/>
     };
   }
   render(){
@@ -73,6 +99,17 @@ class AllDevs extends React.Component {
                 {devs.map(this.dispatched(dispatch))}
               </tbody>
             </table> 
+                        <div className="input-field col s6">
+                          <select ref="x"className="browser-default" >
+                            <option defaultValue="choose user" disabled>choose user:</option>
+                            {devs.map((dev,index) => {
+                                return (
+                                  <option key={index}value={index+1}>{dev.username}</option>
+                                );
+                              })
+                            }
+                          </select>
+                        </div>
           </div>
         </div>
       </div>
