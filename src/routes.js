@@ -10,6 +10,7 @@ export default (
   <Route path="/" component={AppLayout}>
     <IndexRoute component={HomePage} />
     <Route path="devs" component={AllDevs} />
+    <Route path="timesheet" component={DevTimesheet} />		
     <Route path="success" component={ApproveSuccess} />
   </Route>
 );
