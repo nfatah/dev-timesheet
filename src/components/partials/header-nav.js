@@ -12,7 +12,6 @@ const HeaderNav = () => {
         <ul id="nav-mobile" className="right hide-on-med-and-down">
           <li><IndexLink to="/" activeClassName="active yellow accent-4"><span>HOME</span></IndexLink></li>
           <li><Link to="/devs" activeClassName="active yellow accent-4"><span>DEVS</span></Link></li>
-          <li> <Link to="/timesheet" activeClassName="active yellow accent-4"><span>TIMESHEET</span></Link></li>
         </ul>
       </div>
     </nav>   
