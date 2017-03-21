@@ -37,32 +37,29 @@ class AllDevs extends React.Component {
 }
 
   dispatched(d){
-    return function devRow(dev, index){
-
-      function getDate(){
-
-        let val = document.getElementById(`date_pick${index}`).value;
-        // console.log(val);
-        let year = moment(val).format('YYYY');
-        let day_of_year = moment(val).format('DDD');
-        let week_of_year = moment(val).format('W');
-        // let month_of_year = moment(val).format('M');
-        // Get the correct month based on the API because some weeks span 2 Consecutive months
-        let beginningOfWeek = moment().week(week_of_year).startOf('week');
-        //
-        let month_of_year =  beginningOfWeek.format('MM');
-         console.log(month_of_year);
-        if(year !== '2017'){
-          alert("Please choose ONLY 2017 weeks");
-          browserHistory.push('/devs');
-          return;
-        }else if(day_of_year === '1'){
-          alert("January 1st 2017 is week 52 of 2016. Please choose ONLY 2017 weeks");
-          browserHistory.push('/devs');
-          return;
-        }
-        d(timesheetActions.getDevTimesheet(week_of_year, month_of_year, year,dev.id));
+    let user_id = () => this.refs.user_dropdown.value;// IDK why this.refs....value doesnt work 
+    return function getDate(){
+      let val = document.getElementById('date_input').value;
+      console.log(val);
+      let year = moment(val).format('YYYY');
+      let day_of_year = moment(val).format('DDD');
+      let week_of_year = moment(val).format('W');
+      // let month_of_year = moment(val).format('M');
+      // Get the correct month based on the API because some weeks span 2 Consecutive months
+      let beginningOfWeek = moment().week(week_of_year).startOf('week');
+      //
+      let month_of_year =  beginningOfWeek.format('MM');
+        console.log(month_of_year);
+      if(year !== '2017'){
+        alert("Please choose ONLY 2017 weeks");
+        browserHistory.push('/devs');
+        return;
+      }else if(day_of_year === '1'){
+        alert("January 1st 2017 is week 52 of 2016. Please choose ONLY 2017 weeks");
+        browserHistory.push('/devs');
+        return;
       }
+      d(timesheetActions.getDevTimesheet(week_of_year, month_of_year, year,user_id()));
     };
   }
   render(){
@@ -88,8 +85,8 @@ class AllDevs extends React.Component {
               </select>
             </div>
             <div className="input-field col s6">
-              <input defaultValue="2017-01-02" type="date" className="datepicker picker__input"/>
-              <Link className="btn">CHECK </Link>
+              <input id="date_input"defaultValue="2017-01-02" type="date" className="datepicker picker__input"/>
+              <Link className="btn" onClick={this.dispatched(dispatch)}>CHECK</Link>
             </div>
           </div>
         </div>
