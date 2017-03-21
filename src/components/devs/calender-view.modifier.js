@@ -11,23 +11,20 @@ import $ from 'jquery';
         let weeks_data = res.data.data.weeks;
         console.log(res.data.data);
         let pick_attribute = [];
+        let color = 'red';
+        // get the hours worked each day
         weeks_data.forEach(weekObj => {
           weekObj.days_in_week.forEach(day => {
             pick_attribute = moment(`2017-${m}-${day.day_number}`).format('x');
-              if(day.hours === 0){
-                console.log('hasnt worked!');  
-                $(`div.picker__day.picker__day--infocus[data-pick='${pick_attribute}']`).addClass('red-text');
-              }else $(`div.picker__day.picker__day--infocus[data-pick='${pick_attribute}']`).addClass('green-text');
+            // toggle colors
+               color = day.hours >=3 && day.hours <6 ? 'orange' : color
+               color = day.hours >=3 && day.hours <6 ? 'green' : color
+                console.log('hasnt worked!');
+                //inject number of hours worked into calender view 
+                // TODO: make it work!!!!!!!!!
+                $(`div[data-pick='${pick_attribute}']`).append(`<small class='${color}-text'>${day.hours}h</small>`);
           });
         });
-        // for(let i=1;i<=daysInMonth;i++){
-        //   //convert dates to milisends to use for elemetquery
-        //   pick_attribute = moment(`2017-${m}-${i}`).format('x');
-      
-        //   $(`div.picker__day.picker__day--infocus[data-pick='${pick_attribute}']`).addClass('red-text');
-        //   // console.log($(`div.picker__day.picker__day--infocus[data-pick='${pick_attribute}']`));
-
-        // }
       })
       .catch(function (error) {
           // console.log(error);
