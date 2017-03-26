@@ -17,12 +17,13 @@ import $ from 'jquery';
           weekObj.days_in_week.forEach(day => {
             pick_attribute = moment(`2017-${m}-${day.day_number}`).format('x');
             // toggle colors
-               color = day.hours >=3 && day.hours <6 ? 'orange' : color
-               color = day.hours >=3 && day.hours <6 ? 'green' : color
-                console.log('hasnt worked!');
-                //inject number of hours worked into calender view 
-                // TODO: make it work!!!!!!!!!
-                $(`div[data-pick='${pick_attribute}']`).append(`<small class='${color}-text'>${day.hours}h</small>`);
+            color = day.hours >=3 && day.hours <6 ? 'orange' : color
+            color = day.hours >=3 && day.hours <6 ? 'green' : color
+            console.log('hasnt worked!');
+            //inject number of hours worked into calender view 
+            // TODO: make it work!!!!!!!!!
+            $(`div[data-pick='${pick_attribute}'] small`).remove();
+            $(`div[data-pick='${pick_attribute}']`).append(`<small class='${color}-text'>${day.hours}h</small>`);
           });
         });
       })
