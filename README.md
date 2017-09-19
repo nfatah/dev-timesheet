@@ -6,7 +6,7 @@
 1. **Install [Node 7.0.0](https://nodejs.org)**
 2. **Clone this repository.** - `git clone https://github.com/nfatah/dev-timesheet.git` 
 3. **Make sure you're in the directory you just created.** 
-4. **Install Node Packages.** - `npm install`
+4. **Install Node Packages.** - `npm install` or just `yarn`
 5. **Run the app.** - `npm start -s`
 
 #### TODO:
